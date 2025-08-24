@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    image: ghcr.io/OWNER/REPO:latest
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL}
+      OLLAMA_GENERATE_MODEL: ${OLLAMA_GENERATE_MODEL}
+      OLLAMA_EMBED_MODEL: ${OLLAMA_EMBED_MODEL}
+  test:
+    build: .
+    command: ["npm", "test"]
+    environment:
+      NODE_ENV: test
+  e2e:
+    build: .
+    command: ["npm", "run", "test:e2e"]
+    environment:
+      NODE_ENV: test
+
